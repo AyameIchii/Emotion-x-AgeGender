@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhận diện Tuổi & Giới tính</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='age/style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Dự đoán Tuổi & Giới tính</h1>
+        <p>Sử dụng Deep Learning (VGG16)</p>
+      </div>
+
+      <!-- Upload -->
+      <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+        <div class="upload-text">📂 Upload ảnh</div>
+        <div class="upload-subtext">Hỗ trợ JPG, PNG</div>
+        <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+      </div>
+
+      <div style="text-align: center">
+        <button class="btn" onclick="processImage()" id="processBtn" disabled>🔍 Dự đoán</button>
+        <button class="btn" id="toggleBtn" onclick="toggleWebcam()">🎥 Bật Webcam</button>
+        <a href="{{ url_for('home') }}">🏠 Về Trang Chọn</a>
+
+      </div>
+
+      <!-- Loading -->
+      <div id="loading" style="display:none; text-align:center; margin:20px;">
+        <div class="spinner"></div>
+        <p style="color:#667eea; margin-top:10px;">Đang xử lý...</p>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-container" id="previewContainer" style="display: none;">
+        <div class="image-preview">
+          <h3>Ảnh gốc</h3>
+          <img id="originalImage" src="" alt="Ảnh gốc" />
+          <p id="fileName" style="margin-top:8px; color:#555;"></p>
+        </div>
+        <div class="image-preview">
+          <h3>Kết quả dự đoán</h3>
+          <img id="resultImage" src="" alt="Kết quả" style="display:none;" />
+          <p id="errorMessage" style="color:red; margin-top:10px; display:none;"></p>
+        </div>
+      </div>
+
+      <!-- Danh sách khuôn mặt -->
+      <div id="facesContainer" class="preview-container"></div>
+
+      <!-- Nút reset -->
+      <div style="text-align:center; margin-top:20px; display:none;" id="resetSection">
+        <button class="btn" onclick="resetUpload()">🔄 Upload ảnh mới</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="results-section" id="resultsSection" style="display: none;">
+        <h3>Kết quả chi tiết</h3>
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <!-- Webcam -->
+      <div id="webcam_section" style="display:none; margin-top:20px; text-align:center;">
+        <h3>Webcam realtime</h3>
+        <img id="webcam_feed" src="" width="640" height="480" style="border:3px solid #667eea; border-radius:12px;" />
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='age/script.js') }}"></script>
+  </body>
+</html>

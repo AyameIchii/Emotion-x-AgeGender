@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang chọn dự án</title>
+  <style>
+    body {font-family: Arial, sans-serif; text-align:center; margin-top:100px;}
+    a {
+      display:inline-block; 
+      margin:20px; 
+      padding:20px 40px;
+      background:#4f46e5; 
+      color:white; 
+      text-decoration:none; 
+      border-radius:12px;
+      font-size:20px;
+    }
+    a:hover {background:#6366f1;}
+  </style>
+</head>
+<body>
+  <h1>Chọn dự án để chạy</h1>
+  <a href="{{ url_for('index') }}">🔍 Dự đoán Tuổi &amp; Giới tính</a>
+  <a href="{{ url_for('emotion_page') }}">😊 Phân tích Cảm xúc</a>
+</body>
+</html>

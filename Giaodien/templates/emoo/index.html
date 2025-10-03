@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nhận diện Cảm xúc</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='emoo/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Nhận diện Cảm xúc</h1>
+      <p>Upload ảnh hoặc dùng webcam để phân tích cảm xúc</p>
+    </div>
+
+    <!-- Upload area -->
+    <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+      <div class="upload-text">📂 Upload ảnh</div>
+      <div class="upload-subtext">Hỗ trợ JPG, PNG (hoặc kéo thả)</div>
+      <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+    </div>
+
+    <!-- Buttons -->
+    <div style="text-align:center; margin-bottom: 10px;">
+      <button class="btn" id="processBtn" onclick="processImage()" disabled>🔍 Dự đoán</button>
+      <a href="{{ url_for('home') }}">🏠 Về Trang Chọn</a>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" style="display:none; text-align:center; margin:20px;">
+      <div class="spinner"></div>
+      <p style="color:#fb7185; margin-top:10px;">Đang xử lý...</p>
+    </div>
+
+    <!-- Preview + Result -->
+    <div id="previewContainer" style="display:none; margin-top:20px; gap:20px; justify-content:center; flex-wrap:wrap; display:flex;">
+
+      <!-- Original -->
+<div class="model-result" id="origResult" style="display:none;">
+  <h3>Ảnh gốc</h3>
+  <img id="originalImage" src="" alt="Original Image">
+  <p id="fileNamePreview" style="margin-top:8px; color:#555; font-style:italic;"></p>
+</div>
+
+
+      <!-- Deep Learning result -->
+      <div class="model-result" id="deepResult" style="display:none;">
+        <h3>Deep Learning (VGG16)</h3>
+        <img id="deepImage" src="" alt="Deep Result">
+      </div>
+
+      <!-- Truyền thống result -->
+      <div class="model-result" id="tradResult" style="display:none;">
+        <h3>Truyền thống (SGD-SVM)</h3>
+        <img id="tradImage" src="" alt="Trad Result">
+      </div>
+
+    </div>
+
+    <!-- Error message -->
+    <div id="errorMessage" style="color:red; display:none; text-align:center; margin-top:10px;"></div>
+
+    <!-- Text results -->
+    <div id="resultText" style="margin-top:20px; text-align:center;"></div>
+
+    <!-- Reset -->
+    <div style="text-align:center; margin-top:20px; display:none;" id="resetSection">
+      <button class="btn" onclick="resetUpload()">🔄 Upload ảnh mới</button>
+    </div>
+
+    <!-- Webcam toggle -->
+    <div style="text-align:center; margin-top:30px;">
+      <button class="btn" onclick="toggleWebcam()">🎥 Bật/Tắt Webcam (Emotion)</button>
+      <div id="webcamContainer" style="display:none; margin-top:15px; text-align:center;">
+  <div class="webcam-wrapper">
+    <img id="webcamStream" width="600" />
+  </div>
+</div>
+
+    </div>
+
+    <script>
+      function toggleWebcam() {
+  const container = document.getElementById("webcamContainer");
+  const stream = document.getElementById("webcamStream");
+  const uploadArea = document.querySelector(".upload-area");
+  const processBtn = document.getElementById("processBtn");
+  const fileName = document.getElementById("fileName");
+
+  if (container.style.display === "none") {
+    // Bật webcam
+    container.style.display = "block";
+    stream.src = "/video_feed_emotion";
+
+    // Ẩn phần upload + nút dự đoán
+    uploadArea.style.display = "none";
+    processBtn.style.display = "none";
+    fileName.style.display = "none";
+  } else {
+    // Tắt webcam
+    container.style.display = "none";
+    stream.src = "";
+
+    // Hiện lại phần upload + nút dự đoán
+    uploadArea.style.display = "block";
+    processBtn.style.display = "inline-block"; // cho đẹp
+    fileName.style.display = "block";
+  }
+}
+    </script>
+
+    <script src="{{ url_for('static', filename='emoo/script.js') }}"></script>
+  </div>
+</body>
+</html>
