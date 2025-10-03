@@ -1,0 +1,36 @@
+# Web framework
+flask
+flask-cors
+gunicorn
+
+# Machine learning / AI
+tensorflow==2.10.0
+torch
+torchvision
+keras==2.10.0
+deepface
+mtcnn
+retina-face
+ultralytics
+
+# NLP
+nltk
+underthesea
+
+# Data processing
+numpy
+pandas
+scikit-learn
+scipy
+gensim
+
+# Visualization
+matplotlib
+seaborn
+
+# Utilities
+requests
+beautifulsoup4
+opencv-python
+tqdm
+yfinance
